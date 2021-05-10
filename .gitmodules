@@ -5,3 +5,10 @@
 [submodule "neovim-dotfiles"]
 	path = nvim
 	url = https://github.com/phamlehuy53/neovim-dotfiles.git
+[submodule ".tmux"]
+	path = .tmux
+	url = https://github.com/phamlehuy53/.tmux
+
+[submodule "jarvim"]
+	path = jarvim
+	url = https://github.com/phamlehuy53/jarvim

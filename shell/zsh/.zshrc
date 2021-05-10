@@ -10,7 +10,6 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export PATH=/usr/local/zeek/bin:$PATH
 export PATH="/home/$USER/.bin:$PATH"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -89,10 +88,8 @@ plugins=(
     zsh-autosuggestions
     colored-man-pages
     python
-    tmux
     fzf
     vscode
-    vundle
     command-not-found
     web-search
     history
@@ -129,18 +126,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias waterfox="~/waterfox/waterfox"
 alias labelimg="python /mnt/01D322563C532490/dev_project/Python/Labeling/labelimg/labelImg.py"
 alias labeleva="cd /mnt/01D322563C532490/dev_project/Python/Labeling/eva/ && ./start.sh"
 alias labelvott="/snap/vott/current/vott"
 alias model_vis_netron="/media/huy/Data/dev_project/Python/Visualization/Netron-4.0.9.AppImage"
 alias android_studio="/home/huy/android-studio/bin/studio.sh"
-alias intellijidea="/opt/idea-IU-201.7223.91/bin/idea.sh"
-alias subpenguin="/bin/./PenguinSubtitlePlayer"
-alias god="libreoffice '/mnt/01D322563C532490/dev_doc/God-mode.ods'"
+alias subpenguin="~/.bin/PenguinSubtitlePlayer"
 alias vfzf="nvim \$(fzf --height 70%)"
 # alias lazygit="/home/huy/.bin/lazygit"
-alias weka="/home/huy/Programs/weka-3-8-5/./weka.sh"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 
@@ -196,3 +189,15 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k-lean-8colors.zsh ]] || source ~/.p10k-lean-8colors.zsh
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 alias lg='lazygit'
+alias pbcopy="xclip -sel clip"
+alias pimg="xclip -selection clipboard -t image/png -o > "
+alias cheat="/home/huy/.bin/cheat-linux-386"
+alias burp="cd ~/Downloads/setup/BurpSuite\ Pro\ v2.1.04 && java -noverify -Xbootclasspath/p:burp-loader-keygen-2_1_04.jar -jar burpsuite_pro_v2.1.04.jar"
+alias mclang="clang -I \`gnustep-config --variable=GNUSTEP_SYSTEM_HEADERS\` \\
+                       -L \`gnustep-config --variable=GNUSTEP_SYSTEM_LIBRARIES\` \\
+                       -lgnustep-base -fconstant-string-class=NSConstantString \\
+                       -D_NATIVE_OBJC_EXCEPTIONS \\
+                       -lobjc "
+
+alias lmak="rm -rf build && mkdir build && cd build && cmake .. && make -j4 && cd .."
+fpath+=${ZDOTDIR:-~}/.zsh_functions
