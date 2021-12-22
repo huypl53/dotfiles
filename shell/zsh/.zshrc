@@ -96,6 +96,7 @@ plugins=(
     extract
     copyfile
     zsh-z
+    # vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -140,20 +141,19 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export GTK_IM_MODULE="ibus"
 export QT_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
-export PATH="/home/huy/lua-5.4.2/src:$PATH"
 
 
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/huy/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/huy/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/huy/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/huy/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/huy/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/huy/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/huy/anaconda3/bin:$PATH"
+        export PATH="/home/huy/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -179,6 +179,7 @@ bindkey -v
 export FZF_DEFAULT_OPTS='--height 70% --border'
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+# export TERM=xterm
 
 # # Theme
 source ~/powerlevel10k/powerlevel10k.zsh-theme
@@ -193,11 +194,16 @@ alias pbcopy="xclip -sel clip"
 alias pimg="xclip -selection clipboard -t image/png -o > "
 alias cheat="/home/huy/.bin/cheat-linux-386"
 alias burp="cd ~/Downloads/setup/BurpSuite\ Pro\ v2.1.04 && java -noverify -Xbootclasspath/p:burp-loader-keygen-2_1_04.jar -jar burpsuite_pro_v2.1.04.jar"
-alias mclang="clang -I \`gnustep-config --variable=GNUSTEP_SYSTEM_HEADERS\` \\
+alias mclang="clang++ -I \`gnustep-config --variable=GNUSTEP_SYSTEM_HEADERS\` \\
                        -L \`gnustep-config --variable=GNUSTEP_SYSTEM_LIBRARIES\` \\
                        -lgnustep-base -fconstant-string-class=NSConstantString \\
-                       -D_NATIVE_OBJC_EXCEPTIONS \\
-                       -lobjc "
+                       -D_NATIVE_OBJC_EXCEPTIONS "
+                       # -lobjc "
 
 alias lmak="rm -rf build && mkdir build && cd build && cmake .. && make -j4 && cd .."
-fpath+=${ZDOTDIR:-~}/.zsh_functions
+# fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION

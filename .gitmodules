@@ -12,3 +12,6 @@
 [submodule "jarvim"]
 	path = jarvim
 	url = https://github.com/phamlehuy53/jarvim
+[submodule "shell/zsh/powerlevel10k/gitstatus"]
+	path = shell/zsh/powerlevel10k/gitstatus
+	url = https://github.com/romkatv/gitstatus
