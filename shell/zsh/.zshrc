@@ -210,3 +210,4 @@ alias lmak="rm -rf build && mkdir build && cd build && cmake .. && make -j4 && c
 
 # Disable webcam `blacklist uvcvideo`
 # /etc/modprobe.d/blacklist.conf
+export PATH=/home/huy/.meteor:$PATH
