@@ -48,4 +48,5 @@ mv ~/.config/gtk-3.0/gtk.css ~/.config/gtk-3.0/gtk.css.bak
 ln -sf ./shell/gnome/.config/gtk-3.0/gtk.css ~/.config/gtk-3.0/
 
 ## Lvim
+ln -s lvim ~/.config 
 ```
