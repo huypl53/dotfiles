@@ -45,8 +45,17 @@ ln -s `readlink -f ./shell/zsh/.p10k-lean-8colors.zsh` ~/
 ## GUI
 ```bash
 mv ~/.config/gtk-3.0/gtk.css ~/.config/gtk-3.0/gtk.css.bak
-ln -sf ./shell/gnome/.config/gtk-3.0/gtk.css ~/.config/gtk-3.0/
+ln -sf $(readlink -f ./shell/gnome/.config/gtk-3.0/gtk.css ) ~/.config/gtk-3.0/
+```
 
 ## Lvim
-ln -s lvim ~/.config 
+ln -s $(readlink -f lvim) ~/.config 
+
+## [Kitty](https://sw.kovidgoyal.net/kitty/binary/#binary-install)
 ```
+sudo ln -s ~/.local/kitty.app/bin/kitty /usr/bin/
+ln -s $(readlink -f ./shell/kitty/kitty.conf) ~/.config/kitty/kitty.conf
+```
+
+## [ Transparent windows ](./shell/gnome/devilspie-vscode-transparency.sh)
+

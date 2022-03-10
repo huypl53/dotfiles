@@ -201,6 +201,9 @@ alias mclang="clang++ -I \`gnustep-config --variable=GNUSTEP_SYSTEM_HEADERS\` \\
                        # -lobjc "
 
 alias lmak="rm -rf build && mkdir build && cd build && cmake .. && make -j4 && cd .."
+alias lvim="~/.local/bin/lvim"
+alias cheat='~/.bin/cheat-linux-amd64'
+# alias deno='~/.deno/bin/deno'
 # fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 
