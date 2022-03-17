@@ -203,6 +203,7 @@ alias mclang="clang++ -I \`gnustep-config --variable=GNUSTEP_SYSTEM_HEADERS\` \\
 alias lmak="rm -rf build && mkdir build && cd build && cmake .. && make -j4 && cd .."
 alias lvim="~/.local/bin/lvim"
 alias cheat='~/.bin/cheat-linux-amd64'
+alias codetran='code --unity-launch && devilspie &'
 # alias deno='~/.deno/bin/deno'
 # fpath+=${ZDOTDIR:-~}/.zsh_functions
 
@@ -213,4 +214,5 @@ alias cheat='~/.bin/cheat-linux-amd64'
 
 # Disable webcam `blacklist uvcvideo`
 # /etc/modprobe.d/blacklist.conf
+export PATH=/home/huy/.meteor:$PATH
 export PATH=/home/huy/.meteor:$PATH
