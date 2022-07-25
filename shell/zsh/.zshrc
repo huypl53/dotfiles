@@ -10,7 +10,7 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export PATH="/home/$USER/.bin:$PATH"
+# export PATH="/home/$USER/.bin:$PATH"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -204,6 +204,8 @@ alias lmak="rm -rf build && mkdir build && cd build && cmake .. && make -j4 && c
 alias lvim="~/.local/bin/lvim"
 alias cheat='~/.bin/cheat-linux-amd64'
 alias codetran='code --unity-launch && devilspie &'
+alias anemulator='/home/huy/Android/Sdk/emulator/emulator -avd Galaxy_Nexus_API_30'
+alias reactron='/home/huy/Downloads/setup/Reactotron-2.17.1.AppImage'
 # alias deno='~/.deno/bin/deno'
 # fpath+=${ZDOTDIR:-~}/.zsh_functions
 
@@ -215,4 +217,6 @@ alias codetran='code --unity-launch && devilspie &'
 # Disable webcam `blacklist uvcvideo`
 # /etc/modprobe.d/blacklist.conf
 export PATH=/home/huy/.meteor:$PATH
-export PATH=/home/huy/.meteor:$PATH
+export REACT_EDITOR=vim
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export ANDROID_SDK_ROOT=$HOME/Android/sdk
