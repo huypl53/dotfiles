@@ -1,9 +1,19 @@
-plugins=(z fzf)
 
-export PATH="/home/shen/.cargo/bin:$PATH"
-export PATH="/home/shen/.npm-global/bin:$PATH"
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$HOME/code/tools/:$PATH
 
-export PATH="/home/shen/.bin:$PATH"
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="awesomepanda"
+
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting z fzf)
+
+source $ZSH/oh-my-zsh.sh
+
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
+
+export PATH="$HOME/.bin:$PATH"
 export EDITOR=nvim
 unalias gg
 
