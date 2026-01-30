@@ -75,16 +75,7 @@ else
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-TPM_DIR="$HOME/.tmux/plugins/tpm"
-if [ -d "$TPM_DIR/.git" ]; then
-  log "Updating tmux plugin manager"
-  git -C "$TPM_DIR" pull --ff-only
-elif [ -d "$TPM_DIR" ]; then
-  log "TPM directory exists but is not a git repo: $TPM_DIR"
-  log "Delete it and re-run to install TPM."
-else
-  log "Installing tmux plugin manager"
-  git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
-fi
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+"$SCRIPT_DIR/install-tmux.sh"
 
-log "Done. If you use tmux, press prefix + I to install plugins."
+log "Done."
