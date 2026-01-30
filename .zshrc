@@ -21,3 +21,6 @@ alias t-paste=wl-paste -n
 export QT_QUICK_BACKEND=software
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=100000
 alias claude="SHELL=/bin/bash claude --dangerously-skip-permissions"
+
+export PATH=/Users/lee/.opencode/bin:$PATH
+alias lg=lazygit
