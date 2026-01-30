@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 set -eu
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 log() {
   printf '%s\n' "$*"
 }
@@ -14,47 +16,28 @@ need_cmd() {
   command -v "$1" >/dev/null 2>&1
 }
 
-as_root() {
-  if [ "$(id -u)" -eq 0 ]; then
-    "$@"
-  elif need_cmd sudo; then
-    sudo "$@"
-  else
-    die "sudo not found; run as root to install packages"
-  fi
+detect_os() {
+  case "$(uname -s)" in
+    Darwin) echo "macos" ;;
+    Linux)  echo "linux" ;;
+    *)      echo "unknown" ;;
+  esac
 }
 
-install_packages() {
-  if need_cmd apt-get; then
-    as_root apt-get update
-    as_root apt-get install -y tmux zsh curl git
-  elif need_cmd apt; then
-    as_root apt update
-    as_root apt install -y tmux zsh curl git
-  elif need_cmd dnf; then
-    as_root dnf install -y tmux zsh curl git
-  elif need_cmd yum; then
-    as_root yum install -y tmux zsh curl git
-  elif need_cmd pacman; then
-    as_root pacman -Sy --noconfirm tmux zsh curl git
-  elif need_cmd apk; then
-    as_root apk add --no-cache tmux zsh curl git
-  elif need_cmd zypper; then
-    as_root zypper install -y tmux zsh curl git
-  elif need_cmd brew; then
-    brew install tmux zsh curl git
-  else
-    log "No supported package manager found. Install manually: tmux zsh curl git"
-    return 1
-  fi
-}
+OS="$(detect_os)"
+log "Detected OS: $OS"
 
-missing=""
-for cmd in tmux zsh curl git; do
-  if ! need_cmd "$cmd"; then
-    missing="$missing $cmd"
-  fi
-done
+case "$OS" in
+  macos)
+    . "$SCRIPT_DIR/install-macos.sh"
+    ;;
+  linux)
+    . "$SCRIPT_DIR/install-linux.sh"
+    ;;
+  *)
+    die "Unsupported OS: $(uname -s)"
+    ;;
+esac
 
 if [ -n "$missing" ]; then
   log "Installing missing packages:$missing"
