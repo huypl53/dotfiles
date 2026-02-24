@@ -1,0 +1,95 @@
+# Ghostty configuration file (~/.config/ghostty/config)
+# Adapted from your Kitty config. Note that not all Kitty options have direct equivalents in Ghostty.
+# I've matched where possible. Some features like cursor trail, dynamic opacity changes, and specific border styles
+# may not be supported or require additional setup in Ghostty.
+# For unsupported options, I've noted them in comments.
+# Run `ghostty --help` or check https://ghostty.org/docs/config/reference for more details.
+
+# Font settings (Kitty: font_size 14.0, defaults to monospace)
+font-family = monospace
+font-size = 14
+
+# Bold/Italic fonts (Kitty: auto, so using defaults)
+# font-family-bold = auto (Ghostty doesn't have 'auto'; specify if needed)
+# font-family-italic = auto
+# font-family-bold-italic = auto
+
+# Colors (Kitty: foreground #dddddd, background #000000)
+foreground = #dddddd
+background = #000000
+
+# Cursor (Kitty: cursor #dddddd)
+cursor-color = #dddddd
+# cursor-style = block (Kitty default is block; adjust if needed)
+
+# Background opacity (Kitty: background_opacity 0.8)
+background-opacity = 0.8
+
+# Dynamic background opacity (Kitty: dynamic_background_opacity 1)
+# Ghostty doesn't support dynamic changes directly; use keybinds or external tools if needed.
+
+# Confirm close (Kitty: confirm_os_window_close 0 -> no confirmation)
+confirm-close-surface = false
+
+# Cursor trail (Kitty: cursor_trail 1)
+# Ghostty does not support cursor trail animations.
+
+# Display server (Kitty: linux_display_server auto)
+# Ghostty handles Wayland/X11 automatically; no direct config.
+
+# Scrollback (Kitty: scrollback_lines 2000)
+scrollback-limit = 2000
+
+# Wheel scroll min lines (Kitty: wheel_scroll_min_lines 1)
+# Ghostty: mouse-scroll-multiplier (try 1 for minimal scrolling; default is higher)
+mouse-scroll-multiplier = 1
+
+# Audio bell (Kitty: enable_audio_bell no)
+# Set bell-audio-path to empty to disable sound
+bell-audio-path =
+# Or bell-features = no-audio (if supported; check docs)
+
+# Window padding (Kitty: window_padding_width 4)
+window-padding-x = 4
+window-padding-y = 4
+
+# Selection colors (Kitty: selection_foreground none, selection_background none)
+# Ghostty: 'none' might not be supported; use 'cell-foreground'/'cell-background' for reverse video effect
+# selection-foreground = cell-foreground
+# selection-background = cell-background
+
+selection-background = #988049
+selection-foreground = #acb1ab
+
+# Window borders/margins (Kitty: window_border_width 2pt, draw_minimal_borders yes, window_margin_width 1)
+# Ghostty: No direct border width; use window-decoration = true/false for borders
+window-decoration = true
+# Margins/padding handled above; no minimal borders equivalent.
+
+# Single window margins (Kitty: single_window_margin_width -1 -> use default)
+# No direct equivalent; padding applies globally.
+
+# Active/inactive border colors (Kitty: active_border_color #00ff00, inactive_border_color #cccccc)
+# Ghostty: split-divider-color for splits; no per-window active border color.
+split-divider-color = #00ff00
+
+# Tab bar (Kitty: tab_bar_edge bottom)
+# Ghostty: window-show-tab-bar = true (enable if using tabs); no 'edge' position.
+window-show-tab-bar = auto
+
+# Other window settings (Kitty: placement_strategy center, etc.)
+# Ghostty: window-position-x/y for initial position; no strategy like 'center'.
+
+# Keybindings (Kitty: map ctrl+shift+enter launch --cwd=current)
+# Ghostty syntax: keybind = key:mods:action
+keybind = ctrl+shift+enter=new_split
+keybind = option+1=goto_tab:1
+keybind = option+2=goto_tab:2
+keybind = option+3=goto_tab:3
+keybind = option+4=goto_tab:4
+keybind = option+5=goto_tab:5
+
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+l=goto_split:right
+keybind = ctrl+j=goto_split:bottom
+keybind = ctrl+k=goto_split:top
