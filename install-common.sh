@@ -21,15 +21,6 @@ else
   cargo install grip-grab
 fi
 
-# oh-my-zsh
-if [ -d "$HOME/.oh-my-zsh" ]; then
-  log "oh-my-zsh already installed: $HOME/.oh-my-zsh"
-else
-  log "Installing oh-my-zsh"
-  RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
-
 # zsh plugins
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
@@ -53,6 +44,17 @@ elif [ -d "$SYNTAX_HIGHLIGHTING_DIR" ]; then
 else
   log "Installing zsh-syntax-highlighting"
   git clone https://github.com/zsh-users/zsh-syntax-highlighting "$SYNTAX_HIGHLIGHTING_DIR"
+fi
+
+ZSH_Z_DIR="$ZSH_CUSTOM/plugins/zsh-z"
+if [ -d "$ZSH_Z_DIR/.git" ]; then
+  log "Updating zsh-z"
+  git -C "$ZSH_Z_DIR" pull --ff-only
+elif [ -d "$ZSH_Z_DIR" ]; then
+  log "zsh-z directory exists but is not a git repo: $ZSH_Z_DIR"
+else
+  log "Installing zsh-z"
+  git clone https://github.com/agkozak/zsh-z "$ZSH_Z_DIR"
 fi
 
 # tmux plugin manager

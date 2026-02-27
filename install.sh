@@ -59,6 +59,8 @@ else
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/install-common.sh"
+
 "$SCRIPT_DIR/install-tmux.sh"
 
 log "Done."
