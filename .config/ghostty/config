@@ -93,3 +93,6 @@ keybind = ctrl+h=goto_split:left
 keybind = ctrl+l=goto_split:right
 keybind = ctrl+j=goto_split:bottom
 keybind = ctrl+k=goto_split:top
+
+
+macos-option-as-alt = true
