@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit"
+  short_description: "Turn local changes into clean commits"
+  default_prompt: "Use $commit to turn my current working tree into one or more clean, logical commits."

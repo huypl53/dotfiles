@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Changes"
+  short_description: "Review working tree changes before commit"
+  default_prompt: "Use $review-changes to inspect the current git working tree and report findings, risks, and missing tests before commit."
