@@ -1,0 +1,3 @@
+- Do not add a co-author line in commit messages.
+- After finishing a feature, update `./README.md` for usage changes.
+- For development/implementation changes, update architecture docs at `./docs/architecture.md` (create if missing).
