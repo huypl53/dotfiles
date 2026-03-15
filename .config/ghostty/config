@@ -89,10 +89,10 @@ keybind = option+3=goto_tab:3
 keybind = option+4=goto_tab:4
 keybind = option+5=goto_tab:5
 
-keybind = ctrl+h=goto_split:left
-keybind = ctrl+l=goto_split:right
-keybind = ctrl+j=goto_split:bottom
-keybind = ctrl+k=goto_split:top
+# keybind = ctrl+h=goto_split:left
+# keybind = ctrl+l=goto_split:right
+# keybind = ctrl+j=goto_split:bottom
+# keybind = ctrl+k=goto_split:top
 
 
 macos-option-as-alt = true
