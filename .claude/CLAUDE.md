@@ -1,3 +1,4 @@
 - Do not add a co-author line in commit messages.
 - After finishing a feature, update `./README.md` for usage changes.
 - For development/implementation changes, update architecture docs at `./docs/architecture.md` (create if missing).
+- When implement a feature, do it in a working tree branch in a folder of current working dir's `.worktrees/` 
