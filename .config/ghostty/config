@@ -5,10 +5,12 @@
 # For unsupported options, I've noted them in comments.
 # Run `ghostty --help` or check https://ghostty.org/docs/config/reference for more details.
 
+theme = "Catppuccin Mocha"
 # Font settings (Kitty: font_size 14.0, defaults to monospace)
-font-family = monospace
+font-family = "JetBrains Mono"
 font-size = 14
 
+font-feature = +dlig # enables discretionary ligatures
 # Bold/Italic fonts (Kitty: auto, so using defaults)
 # font-family-bold = auto (Ghostty doesn't have 'auto'; specify if needed)
 # font-family-italic = auto
@@ -72,10 +74,9 @@ window-decoration = true
 # Active/inactive border colors (Kitty: active_border_color #00ff00, inactive_border_color #cccccc)
 # Ghostty: split-divider-color for splits; no per-window active border color.
 split-divider-color = #00ff00
-
 # Tab bar (Kitty: tab_bar_edge bottom)
 # Ghostty: window-show-tab-bar = true (enable if using tabs); no 'edge' position.
-window-show-tab-bar = auto
+window-show-tab-bar = never
 
 # Other window settings (Kitty: placement_strategy center, etc.)
 # Ghostty: window-position-x/y for initial position; no strategy like 'center'.
@@ -83,16 +84,27 @@ window-show-tab-bar = auto
 # Keybindings (Kitty: map ctrl+shift+enter launch --cwd=current)
 # Ghostty syntax: keybind = key:mods:action
 keybind = ctrl+shift+enter=new_split
+keybind = ctrl+shift+w=close_surface
+keybind = ctrl+shift+l=goto_split:next
 keybind = option+1=goto_tab:1
 keybind = option+2=goto_tab:2
 keybind = option+3=goto_tab:3
 keybind = option+4=goto_tab:4
 keybind = option+5=goto_tab:5
+keybind = ctrl+shift+o=toggle_tab_overview
 
 # keybind = ctrl+h=goto_split:left
 # keybind = ctrl+l=goto_split:right
 # keybind = ctrl+j=goto_split:bottom
 # keybind = ctrl+k=goto_split:top
 
+window-padding-x = 3
+window-padding-y = 2
+window-padding-balance = true
+window-padding-color = extend
+window-step-resize = true
+#
+# Slightly adjust cell height (try small negative values first)
+# adjust-cell-height = -4%      # or -2%, -6%, 0% (default)
 
 macos-option-as-alt = true
