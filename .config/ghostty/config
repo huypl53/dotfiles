@@ -8,7 +8,7 @@
 theme = "Catppuccin Mocha"
 # Font settings (Kitty: font_size 14.0, defaults to monospace)
 font-family = "JetBrains Mono"
-font-size = 14
+font-size = 11
 
 font-feature = +dlig # enables discretionary ligatures
 # Bold/Italic fonts (Kitty: auto, so using defaults)
@@ -51,10 +51,6 @@ mouse-scroll-multiplier = 1
 bell-audio-path =
 # Or bell-features = no-audio (if supported; check docs)
 
-# Window padding (Kitty: window_padding_width 4)
-window-padding-x = 4
-window-padding-y = 4
-
 # Selection colors (Kitty: selection_foreground none, selection_background none)
 # Ghostty: 'none' might not be supported; use 'cell-foreground'/'cell-background' for reverse video effect
 # selection-foreground = cell-foreground
@@ -85,21 +81,24 @@ window-show-tab-bar = never
 # Ghostty syntax: keybind = key:mods:action
 keybind = ctrl+shift+enter=new_split
 keybind = ctrl+shift+w=close_surface
-keybind = ctrl+shift+l=goto_split:next
+keybind = ctrl+shift+k=goto_split:next
+keybind = ctrl+shift+j=goto_split:previous
 keybind = option+1=goto_tab:1
 keybind = option+2=goto_tab:2
 keybind = option+3=goto_tab:3
 keybind = option+4=goto_tab:4
 keybind = option+5=goto_tab:5
 keybind = ctrl+shift+o=toggle_tab_overview
+keybind = ctrl+shift++=toggle_split_zoom
+# keybind = ctrl+shift+r=toggle_readonly
 
 # keybind = ctrl+h=goto_split:left
 # keybind = ctrl+l=goto_split:right
 # keybind = ctrl+j=goto_split:bottom
 # keybind = ctrl+k=goto_split:top
 
-window-padding-x = 3
-window-padding-y = 2
+window-padding-x = 0
+window-padding-y = 0
 window-padding-balance = true
 window-padding-color = extend
 window-step-resize = true
@@ -108,3 +107,9 @@ window-step-resize = true
 # adjust-cell-height = -4%      # or -2%, -6%, 0% (default)
 
 macos-option-as-alt = true
+
+unfocused-split-opacity = 0.7
+# split-inherit-working-directory = inherit
+working-directory = inherit
+
+window-decoration = auto
