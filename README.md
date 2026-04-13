@@ -26,15 +26,24 @@ chsh -s "$(command -v zsh)"
 
 ## Apply dotfiles (optional)
 
-If you want to use the configs from this repo, symlink them into your home directory:
+Use `sync.sh` to symlink all config files from this repo into your home directory:
 
 ```sh
-ln -sf "$PWD/.tmux.conf" "$HOME/.tmux.conf"
-ln -sf "$PWD/.vimrc" "$HOME/.vimrc"
-ln -sf "$PWD/.zshrc" "$HOME/.zshrc"
+./sync.sh
 ```
 
-If you want to use the `.config` directory, consider backing up your existing `$HOME/.config` first.
+Preview what would happen without making changes:
+
+```sh
+./sync.sh --dry-run
+```
+
+The script symlinks the following:
+
+- **Top-level dotfiles** to `$HOME`: `.zshrc`, `.vimrc`, `.tmux.conf`
+- **Config directories** to `$HOME/.config/`: `ghostty`, `kitty`, `lazygit`
+
+If an existing file or directory would be overwritten, it is backed up with a `.bak` suffix first. The script is idempotent — running it multiple times is safe.
 
 ## tmux plugins
 
