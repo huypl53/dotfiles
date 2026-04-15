@@ -1,6 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if ! command -v tmux >/dev/null 2>&1; then
+  echo "tmux is required for tests"
+  exit 1
+fi
+
+SCRIPT="./scripts/wait-for-idle.sh"
+SOCKET_DIR="${CLAUDE_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/claude-tmux-sockets}"
+mkdir -p "$SOCKET_DIR"
+SOCKET="$SOCKET_DIR/test-wait-for-idle-$$.sock"
+
+cleanup() {
+  tmux -S "$SOCKET" kill-server >/dev/null 2>&1 || true
+  rm -f "$SOCKET"
+}
+trap cleanup EXIT
+
 run_capture() {
   local __out_var="$1"
   local __status_var="$2"
@@ -18,38 +34,42 @@ run_capture() {
   printf -v "$__status_var" '%s' "$_cmd_status"
 }
 
-run_capture output status ./scripts/wait-for-idle.sh
-if [[ "$status" -ne 2 ]]; then
-  echo "expected exit 2 for missing target, got $status"
-  exit 1
-fi
-if ! grep -q '^ERROR:' <<<"$output"; then
-  echo "expected ERROR payload for missing target"
-  exit 1
-fi
+new_session() {
+  local name="$1"
+  local cmd="$2"
+  tmux -S "$SOCKET" new-session -d -s "$name" -n shell "$cmd"
+}
 
+# missing target validation
+run_capture output status "$SCRIPT"
+[[ "$status" -eq 2 ]] || { echo "expected exit 2 for missing target, got $status"; exit 1; }
+grep -q '^ERROR:' <<<"$output" || { echo "expected ERROR payload for missing target"; exit 1; }
 echo "ok: missing target validation"
 
-run_capture conflict_out conflict_status ./scripts/wait-for-idle.sh -t %1 -S /tmp/a.sock -L x
-if [[ "$conflict_status" -ne 2 ]]; then
-  echo "expected exit 2 for -L/-S conflict, got $conflict_status"
-  exit 1
-fi
-if ! grep -q '^ERROR:' <<<"$conflict_out"; then
-  echo "expected ERROR prefix for -L/-S conflict"
-  exit 1
-fi
-
+# socket arg conflict
+run_capture conflict_out conflict_status "$SCRIPT" -t %1 -S /tmp/a.sock -L x
+[[ "$conflict_status" -eq 2 ]] || { echo "expected exit 2 for -L/-S conflict, got $conflict_status"; exit 1; }
+grep -q '^ERROR:' <<<"$conflict_out" || { echo "expected ERROR prefix for -L/-S conflict"; exit 1; }
 echo "ok: socket conflict validation"
 
-run_capture bad_out bad_status ./scripts/wait-for-idle.sh -t %999999 -T 1
-if [[ "$bad_status" -ne 2 ]]; then
-  echo "expected exit 2 for unknown target, got $bad_status"
-  exit 1
-fi
-if ! grep -q '^ERROR:' <<<"$bad_out"; then
-  echo "expected ERROR prefix for unknown target"
-  exit 1
-fi
-
+# unknown target on isolated socket
+new_session known "sleep 60"
+run_capture bad_out bad_status "$SCRIPT" -S "$SOCKET" -t %999999 -T 1
+[[ "$bad_status" -eq 2 ]] || { echo "expected exit 2 for unknown target, got $bad_status"; exit 1; }
+grep -q '^ERROR:' <<<"$bad_out" || { echo "expected ERROR prefix for unknown target"; exit 1; }
 echo "ok: unknown target validation"
+
+# help output
+help_out="$($SCRIPT -h)"
+grep -q 'Usage:' <<<"$help_out" || { echo "expected usage"; exit 1; }
+echo "ok: help output"
+
+# timeout prefix should be TIMEOUT: for changing pane text
+new_session busy 'sh -c "while true; do date +%s%N; sleep 0.2; done"'
+busy_target="busy:0.0"
+run_capture timeout_out timeout_status "$SCRIPT" -S "$SOCKET" -t "$busy_target" -n 3 -s 2 -i 1 -T 4 --status-only
+[[ "$timeout_status" -eq 1 ]] || { echo "expected exit 1 timeout for busy target, got $timeout_status"; exit 1; }
+grep -q '^TIMEOUT:' <<<"$timeout_out" || { echo "expected TIMEOUT prefix"; exit 1; }
+echo "ok: timeout prefix"
+
+echo "all wait-for-idle checks passed"
