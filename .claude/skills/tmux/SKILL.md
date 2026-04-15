@@ -111,8 +111,16 @@ Some special rules for processes:
 - unchanged duration threshold
 - no CPU growth across the pane process tree
 
+Use output mode intentionally:
+- If you need the pane output after idle, do **not** use `--status-only`.
+- If you only need a boolean idle/not-idle signal, use `--status-only`.
+- Default preference for agents: run without `--status-only` to avoid an extra `capture-pane` call.
+
 ```bash
+# Preferred when you need final pane content (single step):
 ./scripts/wait-for-idle.sh -t %12 -n 5 -s 10 -i 1 -T 60
+
+# Use only for status checks:
 ./scripts/wait-for-idle.sh -t mysession:0.0 --status-only
 ```
 
