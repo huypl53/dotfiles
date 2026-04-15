@@ -80,4 +80,19 @@ run_capture cpu_out cpu_status "$SCRIPT" -S "$SOCKET" -t "$cpu_target" -n 5 -s 3
 grep -q '^TIMEOUT:' <<<"$cpu_out" || { echo "expected TIMEOUT prefix for CPU-busy pane"; exit 1; }
 echo "ok: CPU-busy pane is not idle"
 
+# quiet pane should report deterministic idle payloads
+new_session quiet 'sh -c "printf ready\\n; sleep 60"'
+quiet_target="quiet:0.0"
+
+run_capture quiet_status_out quiet_status "$SCRIPT" -S "$SOCKET" -t "$quiet_target" --status-only -n 3 -s 2 -i 1 -T 10
+[[ "$quiet_status" -eq 0 ]] || { echo "expected idle exit 0 for quiet pane status-only, got $quiet_status"; exit 1; }
+[[ "$quiet_status_out" == "IDLE: idle" ]] || { echo "unexpected status-only payload: $quiet_status_out"; exit 1; }
+echo "ok: quiet pane status-only idle payload"
+
+run_capture quiet_default_out quiet_default_status "$SCRIPT" -S "$SOCKET" -t "$quiet_target" -l 20 -n 3 -s 2 -i 1 -T 10
+[[ "$quiet_default_status" -eq 0 ]] || { echo "expected idle exit 0 for quiet pane default output, got $quiet_default_status"; exit 1; }
+grep -q '^IDLE: pane became idle' <<<"$quiet_default_out" || { echo "missing deterministic idle header"; exit 1; }
+grep -q 'ready' <<<"$quiet_default_out" || { echo "expected pane tail text in default idle output"; exit 1; }
+echo "ok: quiet pane default idle payload"
+
 echo "all wait-for-idle checks passed"
