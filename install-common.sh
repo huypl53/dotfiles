@@ -21,6 +21,14 @@ else
   cargo install grip-grab
 fi
 
+# ripgrep
+if need_cmd rg; then
+  log "ripgrep already installed"
+else
+  log "Installing ripgrep"
+  cargo install ripgrep
+fi
+
 # git-delta (https://github.com/dandavison/delta)
 if need_cmd delta; then
   log "git-delta already installed"
