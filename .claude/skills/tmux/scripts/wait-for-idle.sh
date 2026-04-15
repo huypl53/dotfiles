@@ -85,6 +85,98 @@ hash_text() {
   printf '%s' "$text" | "${hash_cmd[@]}" | awk '{print $1}'
 }
 
+time_to_seconds() {
+  local raw="$1"
+  local cleaned
+  local fractionless
+
+  cleaned="$(echo "$raw" | tr -d '[:space:]')"
+  fractionless="${cleaned%%.*}"
+
+  local days=0
+  local rest="$fractionless"
+  if [[ "$rest" == *-* ]]; then
+    days="${rest%%-*}"
+    rest="${rest#*-}"
+  fi
+
+  local h=0
+  local m=0
+  local s=0
+
+  IFS=':' read -r a b c <<<"$rest"
+  if [[ -n "${c:-}" ]]; then
+    h="$a"
+    m="$b"
+    s="$c"
+  elif [[ -n "${b:-}" ]]; then
+    m="$a"
+    s="$b"
+  else
+    s="$a"
+  fi
+
+  echo $((10#$days * 86400 + 10#$h * 3600 + 10#$m * 60 + 10#$s))
+}
+
+collect_descendants() {
+  local root_pid="$1"
+  local queue=()
+  local seen=()
+
+  queue+=("$root_pid")
+  seen+=("$root_pid")
+
+  while [[ ${#queue[@]} -gt 0 ]]; do
+    local current="${queue[0]}"
+    queue=("${queue[@]:1}")
+
+    while IFS= read -r child; do
+      [[ -z "$child" ]] && continue
+      if [[ " ${seen[*]} " != *" $child "* ]]; then
+        seen+=("$child")
+        queue+=("$child")
+      fi
+    done < <(pgrep -P "$current" 2>/dev/null || true)
+  done
+
+  printf '%s\n' "${seen[@]}"
+}
+
+cpu_total_seconds() {
+  local pids=("$@")
+  [[ ${#pids[@]} -gt 0 ]] || {
+    echo 0
+    return
+  }
+
+  local pid_csv
+  pid_csv="$(IFS=,; echo "${pids[*]}")"
+
+  local total=0
+  while IFS= read -r t; do
+    [[ -z "$t" ]] && continue
+    local sec
+    sec="$(time_to_seconds "$t")"
+    total=$((total + sec))
+  done < <(ps -o time= -p "$pid_csv" 2>/dev/null || true)
+
+  echo "$total"
+}
+
+current_cpu_total() {
+  local descendants
+  descendants="$(collect_descendants "$pane_pid")"
+
+  local pid_list=()
+  while IFS= read -r pid; do
+    [[ -z "$pid" ]] && continue
+    pid_list+=("$pid")
+  done <<<"$descendants"
+
+  cpu_total_seconds "${pid_list[@]}"
+}
+
 target=""
 interval=1
 stable_count_threshold=5
@@ -155,6 +247,7 @@ start_epoch=$(date +%s)
 baseline_text="$(capture_tail)"
 baseline_hash="$(hash_text "$baseline_text")"
 baseline_epoch="$start_epoch"
+baseline_cpu="$(current_cpu_total)"
 stable_count=1
 
 while true; do
@@ -165,18 +258,25 @@ while true; do
 
   current_text="$(capture_tail)"
   current_hash="$(hash_text "$current_text")"
+  cpu_now="$(current_cpu_total)"
 
   if [[ "$current_hash" == "$baseline_hash" ]]; then
     stable_count=$((stable_count + 1))
+    unchanged_elapsed=$((now_epoch - baseline_epoch))
+    cpu_delta=$((cpu_now - baseline_cpu))
   else
     baseline_hash="$current_hash"
     baseline_epoch="$now_epoch"
+    baseline_cpu="$cpu_now"
     stable_count=1
+    unchanged_elapsed=0
+    cpu_delta=0
     baseline_text="$current_text"
   fi
 
-  unchanged_elapsed=$((now_epoch - baseline_epoch))
-  if (( stable_count >= stable_count_threshold )) && (( unchanged_elapsed >= idle_seconds_threshold )); then
+  if (( stable_count >= stable_count_threshold )) \
+    && (( unchanged_elapsed >= idle_seconds_threshold )) \
+    && (( cpu_delta <= 0 )); then
     print_idle_and_exit "$current_text"
   fi
 
