@@ -103,3 +103,23 @@ Some special rules for processes:
 - `-i` poll interval seconds (default 0.5)
 - `-l` history lines to search from the pane (integer, default 1000)
 - Exits 0 on first match, 1 on timeout. On failure prints the last captured text to stderr to aid debugging.
+
+## Helper: wait-for-idle.sh
+
+`./scripts/wait-for-idle.sh` waits until a pane is idle by requiring:
+- stable text hash for `N` checks
+- unchanged duration threshold
+- no CPU growth across the pane process tree
+
+```bash
+./scripts/wait-for-idle.sh -t %12 -n 5 -s 10 -i 1 -T 60
+./scripts/wait-for-idle.sh -t mysession:0.0 --status-only
+```
+
+- `-t` pane target (required): `%pane_id` or `session:window.pane`
+- `-n` stable-hash count threshold (default 5)
+- `-s` unchanged-seconds threshold (default 10)
+- `-i` poll interval seconds (default 1)
+- `-l` pane history tail lines for hashing/output (default 200)
+- `-T` timeout seconds; exits with `TIMEOUT:` payload and status 1 if exceeded
+- `--status-only` prints `IDLE: idle` instead of the pane tail text on success
