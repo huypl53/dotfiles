@@ -7,6 +7,7 @@ This repo contains personal dotfiles plus a small installer that bootstraps the 
 - Installs required packages: `tmux`, `zsh`, `curl`, `git` (via your system package manager when possible)
 - Installs Oh My Zsh using the official curl installer
 - Installs tmux plugin manager (TPM)
+- Installs `lazygit` (via `go install`) and `git-delta` (via `cargo install`)
 
 Supported package managers: `apt-get`, `apt`, `dnf`, `yum`, `pacman`, `apk`, `zypper`, `brew`.
 
