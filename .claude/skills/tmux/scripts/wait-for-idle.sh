@@ -29,7 +29,7 @@ print_idle_and_exit() {
   if [[ "$status_only" == true ]]; then
     echo "IDLE: idle"
   else
-    echo "IDLE:"
+    echo "IDLE: pane became idle"
     printf '%s\n' "$tail_text"
   fi
   exit 0
