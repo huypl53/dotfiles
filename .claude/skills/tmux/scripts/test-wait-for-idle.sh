@@ -72,4 +72,12 @@ run_capture timeout_out timeout_status "$SCRIPT" -S "$SOCKET" -t "$busy_target" 
 grep -q '^TIMEOUT:' <<<"$timeout_out" || { echo "expected TIMEOUT prefix"; exit 1; }
 echo "ok: timeout prefix"
 
+# silent CPU-bound process should not be considered idle
+new_session cpu_busy 'sh -c "while :; do :; done"'
+cpu_target="cpu_busy:0.0"
+run_capture cpu_out cpu_status "$SCRIPT" -S "$SOCKET" -t "$cpu_target" -n 5 -s 3 -i 1 -T 6 --status-only
+[[ "$cpu_status" -eq 1 ]] || { echo "expected timeout exit 1 for CPU-busy pane, got $cpu_status"; exit 1; }
+grep -q '^TIMEOUT:' <<<"$cpu_out" || { echo "expected TIMEOUT prefix for CPU-busy pane"; exit 1; }
+echo "ok: CPU-busy pane is not idle"
+
 echo "all wait-for-idle checks passed"
