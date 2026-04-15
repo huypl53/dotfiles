@@ -19,6 +19,36 @@ Options:
 USAGE
 }
 
+print_error_and_exit() {
+  echo "ERROR: $1" >&2
+  exit 2
+}
+
+build_tmux_cmd() {
+  tmux_cmd=(tmux)
+  if [[ -n "$socket_name" && -n "$socket_path" ]]; then
+    print_error_and_exit "use either -L or -S, not both"
+  fi
+  if [[ -n "$socket_name" ]]; then
+    tmux_cmd+=(-L "$socket_name")
+  elif [[ -n "$socket_path" ]]; then
+    tmux_cmd+=(-S "$socket_path")
+  fi
+}
+
+resolve_pane_meta() {
+  local meta
+  if ! meta="$(${tmux_cmd[@]} list-panes -F '#{pane_id}	#{pane_pid}' -t "$target" 2>/dev/null | head -n 1)"; then
+    print_error_and_exit "target pane not found: $target"
+  fi
+
+  pane_id="${meta%%$'\t'*}"
+  pane_pid="${meta##*$'\t'}"
+  if [[ -z "$pane_id" || -z "$pane_pid" || "$pane_id" != %* || ! "$pane_pid" =~ ^[0-9]+$ ]]; then
+    print_error_and_exit "target pane not found: $target"
+  fi
+}
+
 target=""
 interval=1
 stable_count_threshold=5
@@ -72,18 +102,17 @@ while [[ $# -gt 0 ]]; do
       exit 0
       ;;
     *)
-      echo "ERROR: unknown argument: $1" >&2
-      usage >&2
-      exit 2
+      print_error_and_exit "unknown argument: $1"
       ;;
   esac
 done
 
 if [[ -z "$target" ]]; then
-  echo "ERROR: target is required" >&2
-  usage >&2
-  exit 2
+  print_error_and_exit "target is required"
 fi
+
+build_tmux_cmd
+resolve_pane_meta
 
 if [[ "$status_only" == true ]]; then
   echo "IDLE: idle"
