@@ -21,6 +21,32 @@ else
   cargo install grip-grab
 fi
 
+# ripgrep
+if need_cmd rg; then
+  log "ripgrep already installed"
+else
+  log "Installing ripgrep"
+  cargo install ripgrep
+fi
+
+# git-delta (https://github.com/dandavison/delta)
+if need_cmd delta; then
+  log "git-delta already installed"
+else
+  log "Installing git-delta"
+  cargo install git-delta
+fi
+
+# lazygit (https://github.com/jesseduffield/lazygit)
+if need_cmd lazygit; then
+  log "lazygit already installed"
+elif need_cmd go; then
+  log "Installing lazygit via go install"
+  go install github.com/jesseduffield/lazygit@latest
+else
+  log "go not found; skipping lazygit. Install Go or grab a binary from https://github.com/jesseduffield/lazygit/releases"
+fi
+
 # zsh plugins
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 

@@ -13,6 +13,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
 export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=nvim
 unalias gg
 
@@ -23,13 +24,15 @@ alias cca="SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-pe
 alias ccg="CLAUDE_CONFIG_DIR=~/.claude-glm SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
 alias ccp="CLAUDE_CONFIG_DIR=~/.claude-api-proxy SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
 
-export PATH=/Users/lee/.opencode/bin:$PATH
 alias lg=lazygit
-
+alias gnx=gitnexus
+alias fd=fdfind
 . "$HOME/.local/bin/env"
-#
+export TERM=xterm-256color
 # opencode
+export PATH=/Users/lee/.opencode/bin:$PATH
 export PATH=$HOME/.opencode/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:$HOME/code/tools/:$PATH
 export PATH="$BUN_INSTALL/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
+. "$HOME/.local/bin/env"
