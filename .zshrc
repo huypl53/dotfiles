@@ -20,7 +20,8 @@ alias t-paste=wl-paste -n
 export QT_QUICK_BACKEND=software
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=100000
 alias cca="SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
-alias ccg="CLAUDE_CONFIG_DIR=~/.claude-work SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
+alias ccg="CLAUDE_CONFIG_DIR=~/.claude-glm SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
+alias ccp="CLAUDE_CONFIG_DIR=~/.claude-api-proxy SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
 
 export PATH=/Users/lee/.opencode/bin:$PATH
 alias lg=lazygit
