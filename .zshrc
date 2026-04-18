@@ -26,3 +26,5 @@ alias claude="SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip
 export PATH=/Users/lee/.opencode/bin:$PATH
 alias lg=lazygit
 alias gnx=gitnexus
+alias fd=fdfind
+export TERM=xterm-256color
