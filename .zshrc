@@ -38,11 +38,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 . "$HOME/.local/bin/env"
 
-# Claude Code
-[ -f ~/.zshrc_claude ] && source ~/.zshrc_claude
-
 # bun completions
-[ -s "/home/vtit/.bun/_bun" ] && source "/home/vtit/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -54,3 +51,8 @@ export NVM_DIR="$HOME/.nvm"
 
 export SPEEDSCALE_HOME=/home/$USER/.speedscale
 export PATH=$PATH:$SPEEDSCALE_HOME
+
+# Claude Code
+[ -f ~/.zshrc_claude ] && source ~/.zshrc_claude
+[ -f ~/.zshrc_env ] && source ~/.zshrc_env
+
