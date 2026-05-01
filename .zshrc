@@ -28,7 +28,8 @@ alias lg=lazygit
 alias gnx=gitnexus
 alias fd=fdfind
 . "$HOME/.local/bin/env"
-export TERM=xterm-256color
+# export TERM=xterm-256color
+export TERM=tmux-256color
 # opencode
 export PATH=/Users/lee/.opencode/bin:$PATH
 export PATH=$HOME/.opencode/bin:$PATH
@@ -36,3 +37,20 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/code/tools/:$PATH
 export PATH="$BUN_INSTALL/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 . "$HOME/.local/bin/env"
+
+# Claude Code
+[ -f ~/.zshrc_claude ] && source ~/.zshrc_claude
+
+# bun completions
+[ -s "/home/vtit/.bun/_bun" ] && source "/home/vtit/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export SPEEDSCALE_HOME=/home/$USER/.speedscale
+export PATH=$PATH:$SPEEDSCALE_HOME
