@@ -36,3 +36,7 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/code/tools/:$PATH
 export PATH="$BUN_INSTALL/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 . "$HOME/.local/bin/env"
+
+# Claude Code
+[ -f ~/.zshrc_claude ] && source ~/.zshrc_claude
+[ -f ~/.zshrc_env ] && source ~/.zshrc_env
