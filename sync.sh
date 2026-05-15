@@ -4,6 +4,13 @@ set -eu
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 DRY_RUN=false
 
+is_msys2() {
+  case "$(uname -s)" in
+    MINGW*|MSYS*|CYGWIN*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 for arg in "$@"; do
   case "$arg" in
     --dry-run) DRY_RUN=true ;;
@@ -56,6 +63,13 @@ ensure_link() {
 }
 
 # ---------------------------------------------------------------------------
+# MSYS2 symlink warning
+if is_msys2; then
+  log "NOTE: MSYS2 defaults to copying files instead of creating real symlinks."
+  log "  To get real symlinks, enable Windows Developer Mode or set:"
+  log "    MSYS=winsymlinks:nativestrict"
+  log ""
+fi
 
 if [ "$DRY_RUN" = true ]; then
   log "=== dry-run mode — no changes will be made ==="

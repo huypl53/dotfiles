@@ -18,9 +18,10 @@ need_cmd() {
 
 detect_os() {
   case "$(uname -s)" in
-    Darwin) echo "macos" ;;
-    Linux)  echo "linux" ;;
-    *)      echo "unknown" ;;
+    Darwin)                  echo "macos" ;;
+    Linux)                   echo "linux" ;;
+    MINGW*|MSYS*|CYGWIN*)   echo "msys2" ;;
+    *)                       echo "unknown" ;;
   esac
 }
 
@@ -33,6 +34,9 @@ case "$OS" in
     ;;
   linux)
     . "$SCRIPT_DIR/install-linux.sh"
+    ;;
+  msys2)
+    . "$SCRIPT_DIR/install-msys2.sh"
     ;;
   *)
     die "Unsupported OS: $(uname -s)"

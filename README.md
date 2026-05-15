@@ -1,6 +1,6 @@
-# Dotfiles Setup (Linux)
+# Dotfiles Setup
 
-This repo contains personal dotfiles plus a small installer that bootstraps the essentials on most Linux distributions.
+This repo contains personal dotfiles plus a small installer that bootstraps the essentials on Linux, macOS, and MSYS2 (Windows).
 
 ## What the installer does
 
@@ -9,7 +9,7 @@ This repo contains personal dotfiles plus a small installer that bootstraps the 
 - Installs tmux plugin manager (TPM)
 - Installs `lazygit` (via `go install`) and `git-delta` (via `cargo install`)
 
-Supported package managers: `apt-get`, `apt`, `dnf`, `yum`, `pacman`, `apk`, `zypper`, `brew`.
+Supported platforms: Linux (`apt-get`, `apt`, `dnf`, `yum`, `pacman`, `apk`, `zypper`), macOS (`brew`), MSYS2 (`pacman`).
 
 ## Install
 
@@ -19,11 +19,9 @@ Supported package managers: `apt-get`, `apt`, `dnf`, `yum`, `pacman`, `apk`, `zy
 
 Notes:
 - The Oh My Zsh installer runs with `RUNZSH=no`, `CHSH=no`, `KEEP_ZSHRC=yes` to avoid changing your default shell or overwriting your `.zshrc`.
-- If you want to make `zsh` your default shell, run:
-
-```sh
-chsh -s "$(command -v zsh)"
-```
+- If you want to make `zsh` your default shell:
+  - **Linux/macOS**: `chsh -s "$(command -v zsh)"`
+  - **MSYS2**: edit `/etc/passwd` or change the shell in your MSYS2 launcher shortcut.
 
 ## Apply dotfiles (optional)
 
@@ -45,6 +43,8 @@ The script symlinks the following:
 - **Config directories** to `$HOME/.config/`: `ghostty`, `kitty`, `lazygit`
 
 If an existing file or directory would be overwritten, it is backed up with a `.bak` suffix first. The script is idempotent — running it multiple times is safe.
+
+**MSYS2 note**: MSYS2 defaults to copying files instead of creating real symlinks. To get real symlinks, enable Windows Developer Mode or set `MSYS=winsymlinks:nativestrict` before running `sync.sh`.
 
 ## tmux plugins
 
