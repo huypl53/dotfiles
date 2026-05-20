@@ -81,7 +81,7 @@ log ""
 
 # --- Top-level dotfiles ---------------------------------------------------
 log "Top-level dotfiles:"
-for f in .zshrc .vimrc .tmux.conf; do
+for f in .zshrc .zshrc_utils .vimrc .tmux.conf; do
   ensure_link "$REPO_DIR/$f" "$HOME/$f"
 done
 log ""

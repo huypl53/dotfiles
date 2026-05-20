@@ -39,7 +39,7 @@ Preview what would happen without making changes:
 
 The script symlinks the following:
 
-- **Top-level dotfiles** to `$HOME`: `.zshrc`, `.vimrc`, `.tmux.conf`
+- **Top-level dotfiles** to `$HOME`: `.zshrc`, `.zshrc_utils`, `.vimrc`, `.tmux.conf`
 - **Config directories** to `$HOME/.config/`: `ghostty`, `kitty`, `lazygit`
 
 If an existing file or directory would be overwritten, it is backed up with a `.bak` suffix first. The script is idempotent — running it multiple times is safe.
