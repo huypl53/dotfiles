@@ -19,10 +19,6 @@ unalias gg
 
 alias t-paste=wl-paste -n
 export QT_QUICK_BACKEND=software
-export CLAUDE_CODE_MAX_OUTPUT_TOKENS=100000
-alias cca="SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
-alias ccg="CLAUDE_CONFIG_DIR=~/.claude-glm SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
-alias ccp="CLAUDE_CONFIG_DIR=~/.claude-api-proxy SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
 
 alias lg=lazygit
 alias gnx=gitnexus
@@ -57,4 +53,5 @@ export PATH=$PATH:$SPEEDSCALE_HOME
 # Claude Code
 [ -f ~/.zshrc_claude ] && source ~/.zshrc_claude
 [ -f ~/.zshrc_env ] && source ~/.zshrc_env
+[ -f ~/.zshrc_utils ] && source ~/.zshrc_utils
 
