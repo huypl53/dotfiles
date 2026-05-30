@@ -55,3 +55,6 @@ export PATH=$PATH:$SPEEDSCALE_HOME
 [ -f ~/.zshrc_env ] && source ~/.zshrc_env
 [ -f ~/.zshrc_utils ] && source ~/.zshrc_utils
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
