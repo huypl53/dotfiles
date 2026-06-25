@@ -33,3 +33,7 @@ git:
   pagers:
     - colorArg: always
       pager: delta --dark --paging=never --syntax-theme base16-256 --diff-so-fancy -s --true-color always
+
+os:
+  copyToClipboardCmd: 'bash -c "echo -n {{text}} | tmux load-buffer -w -"'
+  # copyToClipboardCmd: 'bash -c "echo {{text}} > /home/vtit/lazygit_debug_output.txt"'

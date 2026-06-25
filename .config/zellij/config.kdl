@@ -1,0 +1,39 @@
+keybinds clear-defaults=true  {
+    // 1. Clear normal mode defaults and only map the prefix trigger
+    normal {
+        bind "Ctrl a" { SwitchToMode "Tmux"; }
+    // Direct navigation from normal mode
+        bind "Alt h" { MoveFocus "Left"; SwitchToMode "normal";  }
+        bind "Alt j" { MoveFocus "Down";  SwitchToMode "normal"; }
+        bind "Alt k" { MoveFocus "Up";  SwitchToMode "normal"; }
+        bind "Alt l" { MoveFocus "Right";  SwitchToMode "normal"; }
+    }
+
+    // 2. Clear tmux mode defaults and assign your tab/pane actions
+    tmux clear-defaults=true {
+        // --- PANE CONTROL ---
+        bind "\"" { NewPane "down"; SwitchToMode "normal"; }
+        bind "%" { NewPane "right"; SwitchToMode "normal"; }
+
+        bind "o" { FocusNextPane; SwitchToMode "Normal"; }     // Cycle focus to next pane
+        bind "x" { CloseFocus; SwitchToMode "Normal"; }        // Close current pane
+        bind ";" { SwitchFocus; SwitchToMode "Normal"; }
+        bind "z" { ToggleFocusFullscreen; SwitchToMode "normal"; }
+        bind "d" { Detach; }
+        bind "h" { MoveFocus "left"; SwitchToMode "normal"; }
+        bind "j" { MoveFocus "down"; SwitchToMode "normal"; }
+        bind "k" { MoveFocus "up"; SwitchToMode "normal"; }
+        bind "l" { MoveFocus "right"; SwitchToMode "normal"; }
+        bind "space" { NextSwapLayout; }
+        
+        // --- TAB CONTROL ---
+        bind "c" { NewTab; SwitchToMode "Normal"; }            // Create a tab
+        bind "n" { GoToNextTab; SwitchToMode "Normal"; }       // Cycle to next tab
+        bind "p" { GoToPreviousTab; SwitchToMode "Normal"; }   // Cycle to previous tab
+        
+        // --- EXIT / PASS-THROUGH ---
+        bind "Esc" { SwitchToMode "Normal"; }
+        bind "Ctrl b" { Write 2; SwitchToMode "Normal"; }      // Double-tap sends Ctrl+b to terminal
+    }
+
+}

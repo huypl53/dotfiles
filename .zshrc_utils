@@ -1,0 +1,31 @@
+# Extract image from Windows clipboard and save to WSL temp directory
+wsl-paste-img() {
+    local tmp_dir="/tmp/wsl_clipboard"
+    mkdir -p "$tmp_dir"
+    
+    local timestamp=$(date +%s)
+    local win_temp_path="C:\\Windows\\Temp\\clip_${timestamp}.png"
+    local wsl_target_path="${tmp_dir}/clip_${timestamp}.png"
+
+    # Use PowerShell to extract the image to Windows Temp
+    powershell.exe -NoProfile -Command "
+        Add-Type -AssemblyName System.Windows.Forms;
+        if ([System.Windows.Forms.Clipboard]::ContainsImage()) {
+            \$img = [System.Windows.Forms.Clipboard]::GetImage();
+            \$img.Save('${win_temp_path}', [System.Drawing.Imaging.ImageFormat]::Png);
+            Write-Output 'SUCCESS';
+        } else {
+            Write-Output 'NO_IMAGE';
+        }
+    " | tr -d '\r' > /dev/null
+
+    # Move from Windows path filesystem to native WSL
+    local win_wsl_path="/mnt/c/Windows/Temp/clip_${timestamp}.png"
+    if [ -f "$win_wsl_path" ]; then
+        mv "$win_wsl_path" "$wsl_target_path"
+        echo "$wsl_target_path"
+    else
+        echo "Error: No image found on the Windows clipboard." >&2
+        return 1
+    fi
+}
