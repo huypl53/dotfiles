@@ -19,36 +19,42 @@ unalias gg
 
 alias t-paste=wl-paste -n
 export QT_QUICK_BACKEND=software
-export CLAUDE_CODE_MAX_OUTPUT_TOKENS=100000
-alias cca="SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
-alias ccg="CLAUDE_CONFIG_DIR=~/.claude-glm SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
-alias ccp="CLAUDE_CONFIG_DIR=~/.claude-api-proxy SHELL=/bin/bash CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions"
 
 alias lg=lazygit
 alias gnx=gitnexus
 alias fd=fdfind
 . "$HOME/.local/bin/env"
-export TERM=xterm-256color
+# export TERM=xterm-256color
+export TERM=tmux-256color
 # opencode
+export PATH=/Users/lee/.opencode/bin:$PATH
 export PATH=$HOME/.opencode/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:$HOME/code/tools/:$PATH
 export PATH="$BUN_INSTALL/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 . "$HOME/.local/bin/env"
 
-# Claude Code
-[ -f ~/.zshrc_claude ] && source ~/.zshrc_claude
-[ -f ~/.zshrc_env ] && source ~/.zshrc_env
-
-
-# Added by Antigravity CLI installer
-export PATH="/Users/lee/.local/bin:$PATH"
-
 # bun completions
-[ -s "/Users/lee/.bun/_bun" ] && source "/Users/lee/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="$HOME/develop/flutter/bin:$PATH"
-eval "$(rbenv init -)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH=$HOME/bin:$PATH
+export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock
+export SPEEDSCALE_HOME=/home/$USER/.speedscale
+export PATH=$PATH:$SPEEDSCALE_HOME
+
+# Claude Code
+[ -f ~/.zshrc_claude ] && source ~/.zshrc_claude
+[ -f ~/.zshrc_env ] && source ~/.zshrc_env
+[ -f ~/.zshrc_utils ] && source ~/.zshrc_utils
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"

@@ -4,6 +4,13 @@ set -eu
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 DRY_RUN=false
 
+is_msys2() {
+  case "$(uname -s)" in
+    MINGW*|MSYS*|CYGWIN*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 for arg in "$@"; do
   case "$arg" in
     --dry-run) DRY_RUN=true ;;
@@ -56,6 +63,13 @@ ensure_link() {
 }
 
 # ---------------------------------------------------------------------------
+# MSYS2 symlink warning
+if is_msys2; then
+  log "NOTE: MSYS2 defaults to copying files instead of creating real symlinks."
+  log "  To get real symlinks, enable Windows Developer Mode or set:"
+  log "    MSYS=winsymlinks:nativestrict"
+  log ""
+fi
 
 if [ "$DRY_RUN" = true ]; then
   log "=== dry-run mode — no changes will be made ==="
@@ -67,7 +81,7 @@ log ""
 
 # --- Top-level dotfiles ---------------------------------------------------
 log "Top-level dotfiles:"
-for f in .zshrc .vimrc .tmux.conf; do
+for f in .zshrc .zshrc_utils .vimrc .tmux.conf; do
   ensure_link "$REPO_DIR/$f" "$HOME/$f"
 done
 log ""
@@ -76,7 +90,7 @@ log ""
 log ".config directories:"
 mkdir -p "$HOME/.config" 2>/dev/null || true
 
-for d in ghostty kitty lazygit; do
+for d in ghostty kitty lazygit zellij; do
   ensure_link "$REPO_DIR/.config/$d" "$HOME/.config/$d"
 done
 log ""
