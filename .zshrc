@@ -30,7 +30,6 @@ alias fd=fdfind
 . "$HOME/.local/bin/env"
 export TERM=xterm-256color
 # opencode
-export PATH=/Users/lee/.opencode/bin:$PATH
 export PATH=$HOME/.opencode/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:$HOME/code/tools/:$PATH
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -40,3 +39,16 @@ export BUN_INSTALL="$HOME/.bun"
 # Claude Code
 [ -f ~/.zshrc_claude ] && source ~/.zshrc_claude
 [ -f ~/.zshrc_env ] && source ~/.zshrc_env
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/lee/.local/bin:$PATH"
+
+# bun completions
+[ -s "/Users/lee/.bun/_bun" ] && source "/Users/lee/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/develop/flutter/bin:$PATH"
+eval "$(rbenv init -)"
