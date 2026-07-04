@@ -1,5 +1,11 @@
 # DRACULA
 gui:
+  # Must be true for the weight modifier to activate
+  expandFocusedSidePanel: true
+
+  # Default is 2. Increase this number (e.g., 3, 4, or 5)
+  # to make the focused panel take up even more vertical space.
+  expandedSidePanelWeight: 4
   theme:
     activeBorderColor:
       - "#FF79C6"
