@@ -15,10 +15,3 @@ for cmd in tmux zsh curl git; do
     missing="$missing $cmd"
   fi
 done
-
-if [ -n "$missing" ]; then
-  log "Installing missing packages:$missing"
-  install_packages || true
-else
-  log "All required packages already installed"
-fi
