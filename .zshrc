@@ -27,7 +27,6 @@ alias fd=fdfind
 # export TERM=xterm-256color
 export TERM=tmux-256color
 # opencode
-export PATH=/Users/lee/.opencode/bin:$PATH
 export PATH=$HOME/.opencode/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:$HOME/code/tools/:$PATH
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -46,7 +45,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH=$HOME/bin:$PATH
-export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock
+# export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock
 export SPEEDSCALE_HOME=/home/$USER/.speedscale
 export PATH=$PATH:$SPEEDSCALE_HOME
 
