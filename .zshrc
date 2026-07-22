@@ -23,7 +23,6 @@ export QT_QUICK_BACKEND=software
 alias lg=lazygit
 alias gnx=gitnexus
 alias fd=fdfind
-. "$HOME/.local/bin/env"
 # export TERM=xterm-256color
 export TERM=tmux-256color
 # opencode
@@ -31,7 +30,7 @@ export PATH=$HOME/.opencode/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:$HOME/code/tools/:$PATH
 export PATH="$BUN_INSTALL/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
-. "$HOME/.local/bin/env"
+[ -s  "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
@@ -54,6 +53,4 @@ export PATH=$PATH:$SPEEDSCALE_HOME
 [ -f ~/.zshrc_env ] && source ~/.zshrc_env
 [ -f ~/.zshrc_utils ] && source ~/.zshrc_utils
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+[ -s /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
