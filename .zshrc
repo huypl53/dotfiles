@@ -23,8 +23,7 @@ export QT_QUICK_BACKEND=software
 alias lg=lazygit
 alias gnx=gitnexus
 alias fd=fdfind
-# export TERM=xterm-256color
-export TERM=tmux-256color
+
 # opencode
 export PATH=$HOME/.opencode/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:$HOME/code/tools/:$PATH
