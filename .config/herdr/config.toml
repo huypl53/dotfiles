@@ -1,0 +1,21 @@
+onboarding = false
+
+[ui.toast]
+delivery = "off"
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+[keys]
+prefix = "ctrl+x"
+goto = "prefix+g"
+new_tab = "prefix+c"
+next_tab = "prefix+n"
+previous_tab = "prefix+p"
+split_horizontal = "prefix+\""
+
+switch_workspace = "prefix+1..9"
+
+[ui.sound]
+enabled = true

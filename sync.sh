@@ -90,7 +90,7 @@ log ""
 log ".config directories:"
 mkdir -p "$HOME/.config" 2>/dev/null || true
 
-for d in ghostty kitty lazygit zellij; do
+for d in ghostty kitty lazygit zellij herdr; do
   ensure_link "$REPO_DIR/.config/$d" "$HOME/.config/$d"
 done
 log ""
