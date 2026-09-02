@@ -14,8 +14,12 @@ new_tab = "prefix+c"
 next_tab = "prefix+n"
 previous_tab = "prefix+p"
 split_horizontal = "prefix+\""
+last_pane = "prefix+;"
 
 switch_workspace = "prefix+1..9"
 
 [ui.sound]
 enabled = true
+
+[experimental]
+allow_nested=true
